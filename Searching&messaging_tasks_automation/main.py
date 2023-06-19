@@ -28,13 +28,13 @@ elif order == 2:
     number = input("Phone Number: ")
     message = input("Your Message: ")
     functions.send_to_whatsapp(number, message)
-    print("Opening the app ...")
+
 
 elif order == 3:
     yt_search = input("Search for: ")
     functions.youtube_play(yt_search)
-    print("Searching ...")
+
 else:
     g_search = input("Search for: ")
     functions.google_search(g_search)
-    print("Searching ... ")
+
