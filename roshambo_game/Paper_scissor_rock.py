@@ -3,58 +3,63 @@ import random
 
 class Game:
 
-    def __init__(self, player_name, rounds, choice, computer, choices, winner):
-        self.player_name = ""
+    def __init__(self, player_name, rounds):
+        self.player_name = player_name
         self.rounds = int(rounds)
-        self.choice = choice
-        self.computer = computer
-        self.choices = []
-        self.winner = None
+        self.choices = ["rock", "paper", "scissors"]
 
-    def f_player(self, player_name):
+    def f_player(self):
         return self.player_name
 
     def f_rounds_num(self):
         return self.rounds
 
-    def f_choices(self):
-        choices = ["rock", "paper", "scissors"]
-        self.computer = random.choice(choices)
-
-        for i in choices:
-            if i == self.choice.lower:
-                return True
-            else:
-                return "Error: Please choose one of the three choices."
+    def f_choices(self, choice):
+        choice = choice.lower()
+        if choice in self.choices:
+            self.choice = choice
+            self.computer = random.choice(self.choices)
+            return True
+        else:
+            return "Error: Please choose one of the three choices."
 
     def f_result(self):
         ai_points = 0
         player_points = 0
 
-        while self.f_choices() is True:
-            for r in range(self.rounds):
-                if self.computer == self.choices[0] and self.choice == self.choices[2]:
-                    print("Winner: ", self.computer)
+        for r in range(self.rounds):
+            player_choice = input("Enter your choice (rock/paper/scissors): ")
+
+            if self.f_choices(player_choice) is True:
+                if self.computer == self.choice:
+                    print("Computer´s choice: ", self.computer)
+                    print("Winner: Draw")
+                elif self.computer == self.choices[0] and self.choice == self.choices[2]:
+                    print("Computer´s choice: ", self.computer)
+                    print("Winner: Computer")
                     ai_points += 1
                 elif self.computer == self.choices[1] and self.choice == self.choices[0]:
-                    print("Winner: ", self.computer)
+                    print("Computer´s choice: ", self.computer)
+                    print("Winner: Computer")
                     ai_points += 1
                 elif self.computer == self.choices[2] and self.choice == self.choices[1]:
-                    print("Winner: ", self.computer)
+                    print("Computer´s choice: ", self.computer)
+                    print("Winner: Computer")
                     ai_points += 1
-                elif self.computer == self.choice:
-                    print("Draw")
                 else:
+                    print("Computer´s choice: ", self.computer)
                     print("Winner: ", self.player_name)
                     player_points += 1
 
-            print("Scores: ")
-            print(f"{self.player_name}: {player_points}")
-            print(f"{self.computer}: {ai_points}")
-            print("Winner is: ")
-            if player_points > ai_points:
-                print(player_points)
-            elif ai_points > player_points:
-                print(ai_points)
-            else:
-                print("Draw")
+        print()
+        print("========== Scores ===========")
+        print(f"{self.player_name}: {player_points}")
+        print(f"Computer: {ai_points}")
+        print("Winner is: ")
+        if player_points > ai_points:
+            print(self.player_name)
+        elif ai_points > player_points:
+            print("Computer")
+        else:
+            print("Draw")
+        print("=============================")
